@@ -26,7 +26,10 @@ char    *ft_copy(char *res)
         i++;
     }
     else
+    {
+       return (str);
        str = ft_substr(res, flag, i);
+    }
     return str;
 }
 
@@ -44,7 +47,6 @@ char    *prueba(int fd,char *res)
     while (!ft_strchr(line, '\n'))
     {
         i = read(fd, line, buffersize);
-        printf("%d\n", i);
         if (i == 0)
             return (NULL);
         res = ft_strjoin(res, line);
@@ -61,6 +63,7 @@ char    *get_next_line(int fd)
         return (NULL);
     // llenar res
     res = prueba(fd, res);
+    //printf("res: %s", res);
     if (res == NULL)
         str == NULL;
     // llenar str
@@ -68,33 +71,28 @@ char    *get_next_line(int fd)
         str = ft_copy(res);
     return str; 
 }
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char *ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*news;
-	size_t			i;
-	size_t			size;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	if (!s)
-		return (0);
-	size = ft_strlen((char *)s);
-	if (size > len)
-		size = len;
-	news = malloc(size + 1);
-	if (!news)
-		return (0);
-	if (start >= (unsigned int)ft_strlen((char *)s) || start > len)
-	{
-		free(news);
+	str = (char*)malloc(sizeof(*s) * (len + 1));
+	if (!str)
 		return (NULL);
-	}
 	i = 0;
-	while (s[i + start] && i < len)
+	j = 0;
+	while (s[i])
 	{
-		news[i] = s[start + i];
+		if (i >= start && j < len)
+		{
+			str[j] = s[i];
+			j++;
+		}
 		i++;
 	}
-	news[i] = 0;
-	return (news);
+	str[j] = 0;
+	return (str);
 }
 
 // encontrar 
