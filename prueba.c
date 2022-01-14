@@ -9,7 +9,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char    *ft_copy(char *res);
 
-int buffersize = 0;
+int buffersize = 4;
 
 char    *ft_copy(char *res)
 {
@@ -44,11 +44,9 @@ char    *prueba(int fd,char *res)
     while (!ft_strchr(line, '\n'))
     {
         i = read(fd, line, buffersize);
-        printf("%d", i);
+        //printf("%d\n", i);
         if (i == 0)
-        {
-           break;
-        }
+            return (NULL);
         res = ft_strjoin(res, line);
     }
     free(line);
@@ -63,8 +61,10 @@ char    *get_next_line(int fd)
         return (NULL);
     // llenar res
     res = prueba(fd, res);
+    //printf("res : %s", res);
+    
     // llenar str
-    //str = ft_copy(res);
+    str = ft_copy(res);
     return str; 
 }
 char	*ft_substr(char const *s, unsigned int start, size_t len)
