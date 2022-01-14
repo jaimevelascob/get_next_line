@@ -44,7 +44,7 @@ char    *prueba(int fd,char *res)
     while (!ft_strchr(line, '\n'))
     {
         i = read(fd, line, buffersize);
-        //printf("%d\n", i);
+        printf("%d\n", i);
         if (i == 0)
             return (NULL);
         res = ft_strjoin(res, line);
@@ -61,10 +61,11 @@ char    *get_next_line(int fd)
         return (NULL);
     // llenar res
     res = prueba(fd, res);
-    //printf("res : %s", res);
-    
+    if (res == NULL)
+        str == NULL;
     // llenar str
-    str = ft_copy(res);
+    else 
+        str = ft_copy(res);
     return str; 
 }
 char	*ft_substr(char const *s, unsigned int start, size_t len)
