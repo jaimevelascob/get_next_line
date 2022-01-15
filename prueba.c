@@ -9,7 +9,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char    *ft_copy(char *res);
 
-int buffersize = 5;
+int buffersize = 10000000;
 
 char    *ft_copy(char *res)
 {
@@ -47,7 +47,6 @@ char    *prueba(int fd,char *res)
     while (!ft_strchr(line, '\n'))
     {
         i = read(fd, line, buffersize);
-        //printf("%d", i);
         if (i == 0)
             return (NULL);
         res = ft_strjoin(res, line);
@@ -58,11 +57,9 @@ char    *prueba(int fd,char *res)
 int check_res(char *res)
 {
     static int i = 0;
-    
-    //printf("1: %s.", res);
+   
     while(res[i])
     {
-        
         if (res[i] == '\n')
         {
             i++;
@@ -89,7 +86,8 @@ char    *get_next_line(int fd)
    if (check == 1)
    {
         res = prueba(fd, res);
-        check = check_res(res);
+        if (res != NULL)
+            check = check_res(res);
    }
    //printf("res: %s\n", res);
     if (res == NULL)
