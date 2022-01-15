@@ -9,7 +9,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char    *ft_copy(char *res);
 
-int buffersize = 4;
+int buffersize = 5;
 
 char    *ft_copy(char *res)
 {
@@ -47,6 +47,7 @@ char    *prueba(int fd,char *res)
     while (!ft_strchr(line, '\n'))
     {
         i = read(fd, line, buffersize);
+        //printf("%d", i);
         if (i == 0)
             return (NULL);
         res = ft_strjoin(res, line);
@@ -54,21 +55,51 @@ char    *prueba(int fd,char *res)
     free(line);
     return (res);
 }
+int check_res(char *res)
+{
+    static int i = 0;
+    
+    //printf("1: %s.", res);
+    while(res[i])
+    {
+        
+        if (res[i] == '\n')
+        {
+            i++;
+            return (0);
+        }
+        //printf("c : %c d %d", res[i], i); 
+        i++;
+    }
+    return (1);
+}
 char    *get_next_line(int fd)
 {
     static char *res;
+    int check;
     char *str;
 
+    check = 1;
     if (fd < 0 || buffersize <= 0)
-        return (NULL);
+        str == NULL;
     // llenar res
-    res = prueba(fd, res);
-    //printf("res: %s", res);
+   if (res)
+        check = check_res(res);
+   //printf("%d", check);  
+   if (check == 1)
+   {
+        res = prueba(fd, res);
+        check = check_res(res);
+   }
+   //printf("res: %s\n", res);
     if (res == NULL)
         str == NULL;
     // llenar str
-    else 
+    else
+    {   
+        //printf("res: %s.", res);
         str = ft_copy(res);
+    }
     return str; 
 }
 char *ft_substr(char const *s, unsigned int start, size_t len)
@@ -135,15 +166,14 @@ char    *ft_strjoin(char *s1, char *s2)
 	}
     s1_size = ft_strlen(s1);
     s2_size = ft_strlen(s2);
+    //printf(" size: %d s2 %s \n", s2_size, s2);
     if (s1_size != 0 || s2_size != 0)
     {
         new = malloc(sizeof(char) * (s1_size + s2_size +1));
         if (!new)
             return (NULL);
-
         ft_memcpy(new, s1,s1_size);
         ft_memcpy(&new[s1_size], s2, s2_size);
-        new[s1_size + s2_size] = '\0';
     }
     return new;
 }
