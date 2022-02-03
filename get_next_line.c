@@ -1,88 +1,93 @@
 #include "get_next_line.h"
 
+char	*save(char *line)
+{
+	int		i;
+	char	*res;
+
+	res = NULL;
+	if (line[0] == '\0')
+	{
+		free(line);
+		return (0);
+	}
+	i = 0;
+	while(line[i] != '\n' && line[i])
+		i++;
+	if (i)
+		res = ft_strjoin(res, &line[i + 1]);
+	free(line);
+	return (res);
+}
+
 char    *ft_copy(char *res)
 {
-    char        *str;
-    int         flag;
-    static int  i = 0;
+	char	*str;
+	int		i;
+	int		x;
 
-    flag = i;
-    while(res[i] != '\n' && res[i])
-        i++;
-    if(res[i] == '\n')
-    {
-        str = ft_substr(res, flag, (i-flag));
-        i++;
-    }
-    else
-        str = ft_substr(res, flag, i);
-    return str;
+	x = 0;
+	i = 0;
+	while(res[x] != '\n' && res[x])
+		x++;
+	str = malloc(sizeof(char) * (x + 1));
+	if (!str)
+		return (NULL);
+	str[x] = '\0';
+	while(res[i] != '\n' && res[i])
+	{
+		str[i] = res[i];
+		i++;
+	}
+	return(str);
+}
+
+void ft_bzero(char *str, size_t size)
+{
+	while (size--)
+		*(str++) = 0;
 }
 
 char    *ft_fillres(int fd,char *res)
 {
-    int i;
-    char *line;
-    
-    line = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-    if (!line)
-    {
-        free(line);
-        return (NULL);
-    }
-    while (!ft_strchr(line, '\n'))
-    {
-        i = read(fd, line, BUFFER_SIZE);
-        if (i == 0)
-            return (NULL);
-        res = ft_strjoin(res, line);
-    }
-    free(line);
+	int		i;
+    char	line[BUFFER_SIZE + 1];
+	
+	i = 1;
+	ft_bzero(line, sizeof(line));
+	while(!ft_strchr(line,'\n') && i)
+	{
+		i = read(fd, line, BUFFER_SIZE);
+		if (i == -1)
+		{
+			free(line);
+			return (NULL);
+		}
+		line[i] = '\0';
+		res = ft_strjoin(res, line);
+	}
     return (res);
-}
-
-int check_res(char *res)
-{
-    static int i = 0;
-   
-    while(res[i])
-    {
-        if (res[i] == '\n')
-        {
-            i++;
-            return (0);
-        } 
-        i++;
-    }
-    return (1);
 }
 
 char    *get_next_line(int fd)
 {
     static char *res;
-    int         check;
     char        *str;
-
-    check = 1;
-    str = NULL;
-    if (fd < 0 || BUFFER_SIZE <= 0)
-        return NULL;
-    if (res)
-        check = check_res(res);
-    printf("c :%d\n", check);
-    if (check == 1)
-    {
-        res = ft_fillres(fd, res);
-        printf("res: %s\n",res);
-        if (res != NULL)
-            check = check_res(res);
-        else
-        {
-            printf("a\n");
-            return NULL;
-        }    
-    }
-    str = ft_copy(res);
+	
+	str = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	res = ft_fillres(fd, res);
+	if (!res)
+		return (NULL);
+	str = ft_copy(res);
+	res = save(res);
+	if(str[0] == '\0')
+	{
+		free(res);
+		free(str);
+		return (NULL);
+	}
     return (str); 
 }
 
