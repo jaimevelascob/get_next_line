@@ -14,7 +14,7 @@ char	*save(char *line)
 	i = 0;
 	while(line[i] != '\n' && line[i])
 		i++;
-	if (i)
+	if (line[i] == '\n' || line[0] == '\n')
 		res = ft_strjoin(res, &line[i + 1]);
 	free(line);
 	return (res);
@@ -24,28 +24,25 @@ char    *ft_copy(char *res)
 {
 	char	*str;
 	int		i;
-	int		x;
 
-	x = 0;
 	i = 0;
-	while(res[x] != '\n' && res[x])
-		x++;
-	str = malloc(sizeof(char) * (x + 1));
+	while(res[i] != '\n' && res[i])
+		i++;
+	str = malloc(sizeof(char) * (i + 1));
 	if (!str)
 		return (NULL);
-	str[x] = '\0';
+	str[i] = '\0';
+	i = 0;
 	while(res[i] != '\n' && res[i])
 	{
 		str[i] = res[i];
 		i++;
 	}
+	if(res[i] == '\n')
+		str[i++] = '\n';
+	while(str[i])
+		str[i++] = '\0';
 	return(str);
-}
-
-void ft_bzero(char *str, size_t size)
-{
-	while (size--)
-		*(str++) = 0;
 }
 
 char    *ft_fillres(int fd,char *res)

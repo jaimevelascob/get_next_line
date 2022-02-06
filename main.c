@@ -20,6 +20,6 @@ int main()
     printf("\nprint: %s\n", aux = get_next_line(fd));
 	free(aux);
     //printf("\nprint: %s\n", get_next_line(fd));
-	system("leaks a.out");
-    //printf("\nprint: %s\n", get_next_line(fd));
+	//system("leaks a.out");
+    printf("\nprint: %s\n", get_next_line(fd));
 }

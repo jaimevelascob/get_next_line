@@ -17,6 +17,12 @@ char    *ft_strchr(char *s, char c)
 	return (0);
 }
 
+void	ft_bzero(char *str, size_t i)
+{
+	while(i--)
+		*(str++) =0;
+}
+
 int ft_strlen(char *str)
 {
 	int i = 0;
@@ -46,6 +52,7 @@ char    *ft_strjoin(char *s1, char *s2)
 	if(!str)
 		return (NULL);
 	i = 0;
+	
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -57,7 +64,8 @@ char    *ft_strjoin(char *s1, char *s2)
 		str[len + i] = s2[i];
 		i++;
 	}
-	str[len + len2] = '\0';
+	
+		str[len + len2] = '\0';
 	free(s1);
 	return (str);
 }
@@ -76,7 +84,6 @@ void    *ft_memcpy(void *dst, const void *src, size_t n)
 	while (i < n && (dest1[i] || src1[i]))
 	{
 		dest1[i] = src1[i];
-		printf("%c:", dest1[i]);
 		i++;
 	}
 	return (dest1);
