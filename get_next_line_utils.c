@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char    *ft_strchr(char *s, char c)
+char	*ft_strchr(char *s, char c)
 {
 	int	i;
 
@@ -10,7 +10,6 @@ char    *ft_strchr(char *s, char c)
 		if (s[i] == c)
 			return (s + i);
 		i++;
-
 	}
 	if (s[i] == c)
 		return ((char *)s + i);
@@ -19,14 +18,15 @@ char    *ft_strchr(char *s, char c)
 
 void	ft_bzero(char *str, size_t i)
 {
-	while(i--)
-		*(str++) =0;
+	while (i--)
+		*(str++) = 0;
 }
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!str)
 		return (0);
 	while (str[i])
@@ -34,43 +34,30 @@ int ft_strlen(char *str)
 	return (i);
 }
 
-char    *ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int	len;
-	int	len2;
-	int	i;
+	int		len;
+	int		len2;
 	char	*str;
-	
-	if(!s1)
+
+	if (!s1)
 	{
-		s1 = malloc(sizeof(char)*1);
+		s1 = malloc(sizeof (char) * 1);
 		s1[0] = '\0';
 	}
 	len = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	str = malloc(sizeof(char) * (len + len2 + 1));
-	if(!str)
+	if (!str)
 		return (NULL);
-	i = 0;
-	
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while(s2[i])
-	{
-		str[len + i] = s2[i];
-		i++;
-	}
-	
-		str[len + len2] = '\0';
+	ft_memcpy(str, s1, len);
+	ft_memcpy(&str[len], s2, len2);
+	str[len + len2] = '\0';
 	free(s1);
 	return (str);
 }
 
-void    *ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t		i;
 	char		*dest1;
