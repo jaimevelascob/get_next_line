@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvelasco <jvelasco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 19:33:45 by jvelasco          #+#    #+#             */
-/*   Updated: 2022/04/06 16:09:58 by jvelasco         ###   ########.fr       */
+/*   Created: 2022/03/13 15:03:19 by jvelasco          #+#    #+#             */
+/*   Updated: 2022/03/13 15:03:23 by jvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,20 @@ char	*ft_fillres(int fd, char *res)
 
 char	*get_next_line(int fd)
 {
-	static char	*res;
+	static char	*res[4096];
 	char		*str;
 
 	str = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	res = ft_fillres(fd, res);
-	if (!res)
+	res[fd] = ft_fillres(fd, res[fd]);
+	if (!res[fd])
 		return (NULL);
-	str = ft_copy(res);
-	res = save(res);
+	str = ft_copy(res[fd]);
+	res[fd] = save(res[fd]);
 	if (str[0] == '\0')
 	{
-		free(res);
+		free(res[fd]);
 		free(str);
 		return (NULL);
 	}

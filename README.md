@@ -3,7 +3,9 @@ In this work we have to read the text file pointed to by the file descriptor, on
 Get_next_line.c:
 	The main function is get_next_line(int fd). Here we control and call the functions. The programm could divide in 3 steps.
 	1. Fill the static variable with the funciton ft_fillres(int fd, char *res);
+
 	2. Copy the res in a new dinamic char, saving the line and the '\n' that we use to separate. This is the one that we are going to return.
+	
 	3. Before return, we cut the res with save(res). To free the line that we return.
 
 Get_next_line_utils.c:
