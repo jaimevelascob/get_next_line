@@ -6,11 +6,11 @@
 /*   By: jvelasco <jvelasco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 19:33:45 by jvelasco          #+#    #+#             */
-/*   Updated: 2022/04/06 16:09:58 by jvelasco         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:54:28 by jvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../inc/get_next_line.h"
 
 char	*save(char *line)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvelasco <jvelasco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/13 15:03:39 by jvelasco          #+#    #+#             */
-/*   Updated: 2022/03/13 15:03:41 by jvelasco         ###   ########.fr       */
+/*   Created: 2022/02/24 19:33:35 by jvelasco          #+#    #+#             */
+/*   Updated: 2022/05/03 18:27:52 by jvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../inc/get_next_line.h"
 
 char	*ft_strchr(char *s, char c)
 {
